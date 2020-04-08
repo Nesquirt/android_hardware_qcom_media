@@ -606,12 +606,11 @@ size_t C2DColorConverter::calcSize(ColorConvertFormat format, size_t width, size
         case NV12_UBWC:
             size = VENUS_BUFFER_SIZE(COLOR_FMT_NV12_UBWC, width, height);
             break;
-<<<<<<< HEAD
-=======
+
         case CbYCrY:
             size = ALIGN(ALIGN(width * 2, ALIGN64) * height, ALIGN4K);
             break;
->>>>>>> 8df9e83cbcdc6ff682a81d3946e2a4945b249658
+
         default:
             break;
     }
