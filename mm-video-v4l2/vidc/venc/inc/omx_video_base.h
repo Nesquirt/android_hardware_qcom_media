@@ -41,7 +41,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////////////////
 //                             Include Files
 //////////////////////////////////////////////////////////////////////////////
-
 #define LOG_TAG "OMX-VENC"
 #include <stdlib.h>
 #include <stdio.h>
@@ -317,7 +316,7 @@ class omx_video: public qc_omx_component
                 bool init();
                 bool open(unsigned int height,unsigned int width,
                         ColorConvertFormat src, ColorConvertFormat dest,
-                        unsigned int src_stride, unsigned int flags);
+                        unsigned int src_stride, unsigned int flags, bool secure=false);
                 bool convert(int src_fd, void *src_base, void *src_viraddr,
                         int dest_fd, void *dest_base, void *dest_viraddr);
                 bool get_buffer_size(int port,unsigned int &buf_size);
@@ -343,7 +342,7 @@ class omx_video: public qc_omx_component
         virtual ~omx_video();  // destructor
 
         // virtual int async_message_process (void *context, void* message);
-        void process_event_cb(void *ctxt,unsigned char id);
+        void process_event_cb(void *ctxt);
 
         OMX_ERRORTYPE allocate_buffer(
                 OMX_HANDLETYPE hComp,
@@ -493,11 +492,9 @@ class omx_video: public qc_omx_component
                 OMX_PTR              appData,
                 void *               eglImage);
 
-
-
+        Signal signal;
         int  m_pipe_in;
         int  m_pipe_out;
-
         pthread_t msg_thread_id;
         pthread_t async_thread_id;
         bool async_thread_created;
